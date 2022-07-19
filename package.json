@@ -1,0 +1,34 @@
+{
+  "name": "justletmecreateabot",
+  "version": "1.0.0",
+  "description": "Simple telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreNovaisBrito/JustLetMeCreateaBot.git"
+  },
+  "keywords": [
+    "Telegram",
+    "bot"
+  ],
+  "author": "Andre Novais Brito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreNovaisBrito/JustLetMeCreateaBot/issues"
+  },
+  "homepage": "https://github.com/AndreNovaisBrito/JustLetMeCreateaBot#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "save": "^2.5.0"
+  }
+}
