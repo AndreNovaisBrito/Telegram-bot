@@ -1,3 +1,4 @@
+//Telegram bot Start
 require('dotenv').config(); // Loads the .env file
 const express = require('express'); // import express
 const bodyParser = require('body-parser'); // for parsing the body of the request
@@ -9,6 +10,20 @@ const WEBHOOK_URL = SERVER_URL + URI; // the url of the webhook
 const app = express(); // create the express app
 app.use(bodyParser.json()); // parse the body of the request
 
+//Twitter Bot
+const rwClient = require('./twitterClient.js'); // import the twitter client
+
+const tweet = async () => {
+    try {
+        await rwClient.v2.tweet('Hello World!'); // tweet the message
+    } catch (e) {
+        console.error(e); // log the error
+    }
+}
+
+tweet(); // tweet the message
+
+//Telegram Bot
 const init = async () => {
     const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`); // set the webhook
     console.log(res.data); // log the response
