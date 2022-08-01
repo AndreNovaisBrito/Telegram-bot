@@ -10,10 +10,14 @@ const WEBHOOK_URL = SERVER_URL + URI; // the url of the webhook
 const app = express(); // create the express app
 app.use(bodyParser.json()); // parse the body of the request
 
+//Fun Generators API
+const RANDOM_FACTS_API = 'https://uselessfacts.jsph.pl/random.json?language=en'; // the url of the random facts api
+
 //Twitter Bot
 //const rwClient = require('./twitterClient.js'); // import the twitter client
 const {TWITTER_APP_KEY, TWITTER_APP_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET} = process.env; // get the token from the .env file
 const {TwitterApi} = require('twitter-api-v2'); // import twitter
+const CronJob = require('cron').CronJob; // import cron job
 
 const client = new TwitterApi({
     appKey:TWITTER_APP_KEY,
@@ -26,13 +30,20 @@ const rwClient = client.readWrite;
 module.exports = rwClient; 
 const tweet = async () => {
     try {
-        await rwClient.v2.tweet('Hello World!'); // tweet the message
+        const response = await axios.get(RANDOM_FACTS_API);
+        await rwClient.v2.tweet(response.data.text); // tweet the message
     } catch (e) {
         console.error(e); // log the error
     }
 }
 
-tweet(); // tweet the message
+//Create a cronjob to tweet every 4 hours
+const job = new CronJob('0 */4 * * *', ()=>{
+    console.log('cron job starting!');
+    tweet();
+}); // create the cronjob
+
+job.start(); // tweet the message
 
 //Telegram Bot
 const init = async () => {
